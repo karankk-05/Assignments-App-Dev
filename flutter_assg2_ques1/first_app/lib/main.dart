@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(4, 249, 225, 1)),
+          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(0, 249, 0, 1)),
         ),
         home: MyHomePage(),
       ),
@@ -245,12 +245,28 @@ class _FavoritesPageState extends State<FavoritesPage> {
               ),
               ),
           
+
+          
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: ElevatedButton(
                     onPressed: () {
-                      setState((){appState.favorites.clear();
-                    });
+                      showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Alert"),
+                          content: Text("Do you really want to delete all?"),               
+                          actions: [ElevatedButton(onPressed:()=> [ setState((){appState.favorites.clear();}),Navigator.pop(context),],
+                          child: Text("Yes")),
+                          ElevatedButton(onPressed:()=> Navigator.pop(context), child: Text("No"))
+                       
+                      ]
+                          );
+                        });
+                      
+                      
+                    
                     },
                     child: Text('Delete All')
                       .animate()

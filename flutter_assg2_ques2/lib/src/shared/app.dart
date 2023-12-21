@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
                 valueListenable: settings,
                 builder: (context, value, _) {
                   final theme = ThemeProvider.of(context);
-                  final colors = Theme.of(context).colorScheme;
+                  
                   // Create theme instance
                   return MaterialApp.router(
                     debugShowCheckedModeBanner: false,
