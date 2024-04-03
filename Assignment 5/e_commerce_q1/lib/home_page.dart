@@ -145,7 +145,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-          );
+          );  
+
+          
         } else {
           return Scaffold(
             appBar: AppBar(

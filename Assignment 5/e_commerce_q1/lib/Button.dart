@@ -59,7 +59,7 @@ class PressableElevatedButton extends StatelessWidget {
         }
       },
       style: ElevatedButton.styleFrom(
-        primary: buttonColor,
+        backgroundColor: buttonColor,
       ),
       icon: Icon(
         icon,

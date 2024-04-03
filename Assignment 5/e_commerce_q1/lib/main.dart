@@ -10,16 +10,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => CartModel()),
-        ],
+    return 
+          ChangeNotifierProvider(create: (context) => CartModel(),
+
         child: MaterialApp(
           title: 'k-Kart App',
           theme: ThemeData(
             useMaterial3: true,
             colorScheme:
-                ColorScheme.fromSeed(seedColor: Color.fromRGBO(9, 167, 1, 1)),
+                ColorScheme.fromSeed(seedColor: Color.fromRGBO(31, 167, 1, 1.0)),
           ),
           home: LogoAnimate(),
         ));

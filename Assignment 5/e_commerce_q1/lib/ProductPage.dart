@@ -93,6 +93,7 @@ class ProductCard extends StatelessWidget {
   final String name;
   final String price;
   final String details;
+  
 
   ProductCard({
     required this.image,
@@ -109,7 +110,7 @@ class ProductCard extends StatelessWidget {
           child: Card(
             margin: EdgeInsets.all(8.0),
             child: Container(
-              height: 230,
+              height: 280,
               child: Stack(
                 children: [
                   Row(
@@ -118,7 +119,7 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Container(
                         height: 190,
-                        width: 220,
+                        width: 150,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Image.asset('assets/$image'),
@@ -171,7 +172,7 @@ class ProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(40, 180, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(10, 200, 0, 0),
                           child: PressableElevatedButton(
                             productName: name,
                             productImage: image,

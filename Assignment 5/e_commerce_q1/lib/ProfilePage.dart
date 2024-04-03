@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -13,51 +14,53 @@ class ProfilePage extends StatelessWidget {
       body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
-              padding: const EdgeInsets.fromLTRB(0, 50, 30, 50),
+              padding: const EdgeInsets.fromLTRB(10, 50, 30, 50),
               child: Image.asset('assets/logo.png', height: 200)),
-          Column(
-            children: [
-              Card(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                child: Row(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                        child: Icon(Icons.person)),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
-                      child: Animate(
-                          child: Text(
-                        '$name',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ).animate().fade(duration: 1000.ms)),
-                    ),
-                  ],
+          Expanded(
+            child: Column(
+              children: [
+                Card(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  child: Row(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                          child: Icon(Icons.person)),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
+                        child: Animate(
+                            child: Text(
+                          '$name',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ).animate().fade(duration: 1000.ms)),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Card(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                child: Row(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                        child: Icon(Icons.phone)),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
-                      child: Animate(
-                          child: Text(
-                        '$phone',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ).animate().fade(duration: 1000.ms)),
-                    ),
-                  ],
+                Card(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  child: Row(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                          child: Icon(Icons.phone)),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
+                        child: Animate(
+                            child: Text(
+                          '$phone',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ).animate().fade(duration: 1000.ms)),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ]),
         Padding(
@@ -98,7 +101,7 @@ class ProfilePage extends StatelessWidget {
                     child: Text(
                       'Logout',
                       style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 20,
                           color: Theme.of(context).colorScheme.onPrimary,
                           fontWeight: FontWeight.bold),
                     )),

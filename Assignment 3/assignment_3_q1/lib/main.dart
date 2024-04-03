@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 void main() {
@@ -62,7 +62,7 @@ class _GeneratorPageState extends State<GeneratorPage> {
   }
 }
 
-  List<String> fieldLabels = ['Username', 'Email', 'Roll No', 'Phone No'];
+  
   @override
   Widget build(BuildContext context) {
     var formData = Provider.of<FormData>(context);
@@ -255,8 +255,9 @@ class ProfilePage extends StatelessWidget {
                               TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
-                                  Navigator.of(context)
-                                      .pop('$user Logged Out Successfully');
+                                 
+                                 Navigator.of(context)
+                                     .pop('$user Logged Out Successfully');
                                   Provider.of<FormData>(context, listen: false)
                                       .resetForm();
                                 },
@@ -314,6 +315,7 @@ class ProfilePage extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               Navigator.pop(context);
+                              
                               Navigator.of(context)
                                   .pop('$user Logged Out Successfully');
                               Provider.of<FormData>(context, listen: false)

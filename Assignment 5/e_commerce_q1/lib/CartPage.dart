@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'Model.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -114,6 +116,7 @@ class CartPage extends StatelessWidget {
 class TotalPriceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     return Consumer<CartModel>(
       builder: (context, cart, child) {
         double totalPrice = cart.cart.fold(
@@ -189,126 +192,138 @@ class _CartItemState extends State<CartItem> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Row(
       children: [
         Expanded(
           child: Card(
             margin: EdgeInsets.all(8.0),
             child: Container(
-              height: 230,
-              child: Stack(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 220,
-                      width: 220,
-                      child: Padding(
-                        padding: const EdgeInsets.all(3),
-                        child: Image.asset('assets/${widget.product.image}'),
+              height: screenSize.height*0.3,
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: screenSize.height*0.15,
+                        width: screenSize.width*0.3,
+                        child: Padding(
+                          padding: const EdgeInsets.all(3),
+                          child: Image.asset('assets/${widget.product.image}'),
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(5, 10, 0, 0),
+                              child: Wrap(
+                                children: [
+                                  Text(
+                                    '${widget.product.name}',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                              child: Text(
+                                '${formatPrice(double.parse(widget.product.price))}',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    ],
+                  ),
+                  Container(height: screenSize.height*0.07,width: screenSize.width*0.6,
+                    child: Card(
+                      color:
+                          Theme.of(context).colorScheme.primaryContainer,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.remove),
+                            onPressed: () {
+                              if (widget.product.quantity > 1) {
+                                setState(() {
+                                  widget.product.quantity--;
+                                  widget.onQuantityChanged?.call();
+                                });
+                              }
+                            },
+                          ),
+                          Text(
+                            '${widget.product.quantity}',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.add,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primary),
+                            onPressed: () {
+                              setState(() {
+                                widget.product.quantity++;
+                                widget.onQuantityChanged?.call();
+                              });
+                            },
+                          ),
+                          ElevatedButton(
+                            onPressed: () => showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Confirm'),
+                                  content: Text('Confirm Order?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('No'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        widget.onOrderConfirmed();
+                                        _showSnackBar(context,
+                                            'Placed: Your ${widget.product.name} will reach you soon !!');
+                                      },
+                                      child: Text('Yes'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                            child: Text('Place Order'),
+                          ),
+                        ],
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(5, 10, 0, 0),
-                          child: Text(
-                            '${widget.product.name}',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                          child: Text(
-                            '${formatPrice(double.parse(widget.product.price))}',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          width: 230,
-                          child: Card(
-                            color:
-                                Theme.of(context).colorScheme.primaryContainer,
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.remove),
-                                  onPressed: () {
-                                    if (widget.product.quantity > 1) {
-                                      setState(() {
-                                        widget.product.quantity--;
-                                        widget.onQuantityChanged?.call();
-                                      });
-                                    }
-                                  },
-                                ),
-                                Text(
-                                  '${widget.product.quantity}',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.add,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary),
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.product.quantity++;
-                                      widget.onQuantityChanged?.call();
-                                    });
-                                  },
-                                ),
-                                ElevatedButton(
-                                  onPressed: () => showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text('Confirm'),
-                                        content: Text('Confirm Order?'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text('No'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                              widget.onOrderConfirmed();
-                                              _showSnackBar(context,
-                                                  'Placed: Your ${widget.product.name} will reach you soon !!');
-                                            },
-                                            child: Text('Yes'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                  child: Text('Place Order'),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                  ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(width: 200,
                           child: ElevatedButton(
                             onPressed: () {
                               Provider.of<CartModel>(context, listen: false)
                                   .removeFromCart(widget.product);
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: Color.fromARGB(255, 59, 171, 25),
+                              backgroundColor:  Color.fromARGB(255, 59, 171, 25),
                             ),
                             child: Row(
                               children: [
@@ -327,11 +342,9 @@ class _CartItemState extends State<CartItem> {
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-              ]),
+                      ),
+                ],
+              ),
             ),
           ),
         ),
